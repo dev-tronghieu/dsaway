@@ -1,21 +1,4 @@
-package leetcode
-
-import (
-	"testing"
-
-	"github.com/stretchr/testify/assert"
-)
-
-func Test(t *testing.T) {
-	s := "A man, a plan, a canal: Panama"
-	assert.Equal(t, true, isPalindrome(s))
-
-	s = "race a car"
-	assert.Equal(t, false, isPalindrome(s))
-
-	s = " "
-	assert.Equal(t, true, isPalindrome(s))
-}
+package solutions
 
 func isUppercase(char byte) bool {
 	return char >= 65 && char <= 90
@@ -43,7 +26,7 @@ func toLowercase(char byte) byte {
 	return char
 }
 
-func isPalindrome(s string) bool {
+func IsPalindrome(s string) bool {
 	leftPointer := 0
 	rightPointer := len(s) - 1
 
