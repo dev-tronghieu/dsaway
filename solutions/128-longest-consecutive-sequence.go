@@ -1,17 +1,6 @@
-package leetcode
+package solutions
 
-import (
-	"testing"
-
-	"github.com/stretchr/testify/assert"
-)
-
-func Test(t *testing.T) {
-	nums := []int{100, 4, 200, 1, 3, 2}
-	assert.Equal(t, 4, longestConsecutive(nums))
-}
-
-func longestConsecutive(nums []int) int {
+func LongestConsecutive(nums []int) int {
 	m := make(map[int]bool)
 	for _, num := range nums {
 		m[num] = true
