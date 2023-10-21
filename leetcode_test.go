@@ -7,63 +7,39 @@ import (
 )
 
 func Test(t *testing.T) {
-	s := "A man, a plan, a canal: Panama"
-	assert.Equal(t, true, isPalindrome(s))
+	nums := []int{2, 7, 11, 15}
+	target := 9
+	expected := []int{1, 2}
+	actual := twoSum(nums, target)
+	assert.Equal(t, expected, actual)
 
-	s = "race a car"
-	assert.Equal(t, false, isPalindrome(s))
+	nums = []int{2, 3, 4}
+	target = 6
+	expected = []int{1, 3}
+	actual = twoSum(nums, target)
+	assert.Equal(t, expected, actual)
 
-	s = " "
-	assert.Equal(t, true, isPalindrome(s))
+	nums = []int{-1, 0}
+	target = -1
+	expected = []int{1, 2}
+	actual = twoSum(nums, target)
+	assert.Equal(t, expected, actual)
 }
 
-func isUppercase(char byte) bool {
-	return char >= 65 && char <= 90
-}
+func twoSum(numbers []int, target int) []int {
+	l := 0
+	r := len(numbers) - 1
 
-func isLowercase(char byte) bool {
-	return char >= 97 && char <= 122
-}
-
-func isNumeric(char byte) bool {
-	return char >= 48 && char <= 57
-}
-
-func isAlphanumeric(char byte) bool {
-	if isUppercase(char) || isLowercase(char) || isNumeric(char) {
-		return true
-	}
-	return false
-}
-
-func toLowercase(char byte) byte {
-	if isUppercase(char) {
-		return char + 32
-	}
-	return char
-}
-
-func isPalindrome(s string) bool {
-	leftPointer := 0
-	rightPointer := len(s) - 1
-
-	for rightPointer > leftPointer {
-		if !isAlphanumeric(s[leftPointer]) {
-			leftPointer++
-			continue
+	for l < r {
+		sum := numbers[l] + numbers[r]
+		if sum < target {
+			l++
+		} else if sum > target {
+			r--
+		} else {
+			return []int{l + 1, r + 1}
 		}
-
-		if !isAlphanumeric(s[rightPointer]) {
-			rightPointer--
-			continue
-		}
-
-		if toLowercase(s[leftPointer]) != toLowercase(s[rightPointer]) {
-			return false
-		}
-		leftPointer++
-		rightPointer--
 	}
 
-	return true
+	return nil
 }
