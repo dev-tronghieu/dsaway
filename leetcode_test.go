@@ -1,45 +1,50 @@
 package leetcode
 
 import (
+	"sort"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func Test(t *testing.T) {
-	nums := []int{2, 7, 11, 15}
-	target := 9
-	expected := []int{1, 2}
-	actual := twoSum(nums, target)
-	assert.Equal(t, expected, actual)
+	nums := []int{3, 0, -2, -1, 1, 2}
+	res := threeSum(nums)
+	assert.Equal(t, [][]int{{-2, 0, 2}, {-1, 0, 1}, {-2, -1, 3}}, res)
 
-	nums = []int{2, 3, 4}
-	target = 6
-	expected = []int{1, 3}
-	actual = twoSum(nums, target)
-	assert.Equal(t, expected, actual)
+	nums = []int{}
+	res = threeSum(nums)
+	assert.Equal(t, res, [][]int{})
 
-	nums = []int{-1, 0}
-	target = -1
-	expected = []int{1, 2}
-	actual = twoSum(nums, target)
-	assert.Equal(t, expected, actual)
+	nums = []int{0, 0, 0}
+	res = threeSum(nums)
+	assert.Equal(t, res, [][]int{{0, 0, 0}})
 }
 
-func twoSum(numbers []int, target int) []int {
-	l := 0
-	r := len(numbers) - 1
-
-	for l < r {
-		sum := numbers[l] + numbers[r]
-		if sum < target {
-			l++
-		} else if sum > target {
-			r--
-		} else {
-			return []int{l + 1, r + 1}
+func threeSum(nums []int) [][]int {
+	l := len(nums)
+	sort.Ints(nums)
+	var result [][]int
+	for i := 0; i < l-2; i++ {
+		if i > 0 && nums[i] == nums[i-1] {
+			continue
+		}
+		j := i + 1
+		k := l - 1
+		for j < k {
+			sum := nums[j] + nums[k] + nums[i]
+			if sum == 0 {
+				result = append(result, []int{nums[i], nums[j], nums[k]})
+				k--
+				for j < k && nums[k] == nums[k+1] {
+					k--
+				}
+			} else if sum > 0 {
+				k--
+			} else {
+				j++
+			}
 		}
 	}
-
-	return nil
+	return result
 }
